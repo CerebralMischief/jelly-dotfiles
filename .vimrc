@@ -110,6 +110,8 @@ set guioptions-=mrL
 " Set max tabs to 20
 set tabpagemax=20
 
+set pastetoggle=<F12>
+
 " indenting
 set cindent
 set smartindent
@@ -164,6 +166,9 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 nnoremap <space>ff :Ack!<Space>
 nnoremap <space>\\ :NERDTreeToggle<CR>
 nnoremap <space>tt :TagbarToggle<CR>
+
+" format json
+nnoremap <space>json :%! python -m json.tool<CR>
 
 " Use pacman -S the_silver_searcher if avaliable.
 if executable('ag')
