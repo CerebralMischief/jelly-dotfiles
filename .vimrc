@@ -21,7 +21,7 @@ Plug 'joonty/vdebug', { 'for': 'php' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " Tagbar
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 
 " Completion
 Plug 'maralla/completor.vim', {'do': 'make js'}
@@ -34,6 +34,9 @@ Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-surround'
 
 Plug 'editorconfig/editorconfig-vim'
+
+Plug 'tbabej/taskwiki'
+Plug 'vimwiki/vimwiki'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -68,7 +71,6 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsListSnippets        = "<c-l>" "List possible snippets based on current file
-let g:UltiSnipsUsePythonVersion=2
 
 " fugitive git bindings
 " http://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/
@@ -129,6 +131,12 @@ autocmd FileType python let python_slow_sync = 1
 autocmd FileType python set expandtab shiftwidth=4 softtabstop=4
 autocmd FileType python set completeopt=preview
 
+" set filetype of PKGBUILD
+augroup pkgbuild
+    autocmd!
+    autocmd BufRead,BufNewFile PKGBUILD set filetype=PKGBUILD
+augroup END
+
 " PKGBUILD stuff
 autocmd FileType PKGBUILD set expandtab shiftwidth=2 softtabstop=4
 "
@@ -156,8 +164,14 @@ let g:ale_sign_warning = '⚠'
 let g:ale_statusline_format = ['✘ %d', '⚠ %d', '']
 let g:airline_section_error = '%{ALEGetStatusLine()}'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:airline#extensions#tagbar#enabled = 0
 
 highlight clear ALEErrorSign
+
+" completor
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
